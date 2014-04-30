@@ -17,6 +17,6 @@ Add your chapters and articles in the following list:
 * [Scripting](chapter-1/README.md)
 * [Advanced Configuration](chapter-1/README.md)
 * [Implementing new Extensions (XEPs)](chapter-1/ARTICLE1.md)
-* [Deployment]
+* [Deployment](chapter-1/ARTICLE1.md)
 	* [Clustering and Loadbalancing](chapter-1/ARTICLE1.md)
 * [Testing](chapter-1/ARTICLE1.md)
