@@ -1,3 +1,3 @@
-# Chapter 1
+# Example chapter
 
-This is chapter 1.
+Put in stuff here
