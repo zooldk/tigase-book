@@ -25,8 +25,11 @@ Each node must also have the same database connection strings, e.g.:
 
 ### Strategy
 
+The Tigase server 
+
 * Default Strategy
 * OnlineUserCaching Strategy
+* Your own strategy
 
 
 cost licens.. default is open and free. only relevant for 3 nodes and above. default send every request to every node (generates al lot of traffic)
@@ -41,6 +44,10 @@ cost licens.. default is open and free. only relevant for 3 nodes and above. def
 ### Native TCP client conenctions
 
 ### BOSH connections
+
+Since BOSH connections are base on normal HTTP (request / response model), the client is not ensured that it will get the correct... 
+
+So **sticky sessions** should be used on the loadbalancer to ensure that the client will get the correct answer back from the correct node in the cluster.
 
 ### Websocket connections
 
