@@ -15,7 +15,7 @@ Clustering and load balancing can be achieved in various ways. The most common w
 
 ## Configuration
 
-Changing a single tigase instance to be used in a clustered environment is simple. In the property file (in {TIGASE_HOME}/etc/init.properties) add this single line:
+Changing a single tigase instance to be used in a clustered environment is simple. In the property file (in `${TIGASE_HOME}/etc/init.properties`) add this single line:
 
 `--cluster-mode=true`
 
