@@ -1,9 +1,9 @@
 # Clustering
 
-Clustering in tigase is quite straight forward. When configured correctly the nodes in the cluster will automatically find each other and join the cluster. If a node have failed or is taken down for maintainance, all the other nodes will be notified and i will continue its operations normaally. All of the clients that were connected to the node currently down, have to do re-connect again, and connect to a load balancer that will distribute it to a node that is up. All presence and messages will be as in normal single-node (non-cluster) operation and work out of the box. The proper way of doing re-connect for clients can be found in the core [RFC6120, chapter 3.3](https://tools.ietf.org/html/rfc6120#page-19)
+Clustering in tigase is quite straight forward. When configured correctly the nodes in the cluster will automatically find each other and join the cluster. If a node have failed or is taken down for maintainance, all the other nodes will be notified and will continue its operations normally. All of the clients that were connected to the node currently down, have to do re-connect again, and connect to a load balancer that will distribute it to a node that is up. All presence and messages will be as in normal single-node (non-cluster) operation and work out of the box. The proper way of doing re-connect for clients are described in the core [RFC6120, chapter 3.3](https://tools.ietf.org/html/rfc6120#page-19)
 
 
-Clustering and load balancing can be achieved in various ways. The most common way is to have a load balancer (either software or hardware) in front that will balance between the nodes in the cluster. Another way is to use DNS SERV to make the balancing between the nodes. 
+Clustering and load balancing can be achieved in various ways. The most common way is to have a load balancer (either software or hardware) in front that will balance between the nodes in the cluster. Another way is to use DNS SRV records to make the balancing between the nodes. 
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ Clustering and load balancing can be achieved in various ways. The most common w
 * The nodes should have a FQDN resolvable names for each node in the cluster
 * Port 5777 should be open between the nodes in the cluster. This is used for notifying and send stanzas beweeen the nodes.
 * Each node must share the same database. In that case the port for communicating with the database should be open as well.
-
+* Configure the tigase server to do cluster (see next section)
 
 ## Configuration
 
