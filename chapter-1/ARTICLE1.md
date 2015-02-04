@@ -1,5 +1,4 @@
-# Article 1
+# Introduction
 
-This is the first article in the example chapter
 
 

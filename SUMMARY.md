@@ -1,50 +1,39 @@
 # Summary
 
 
-* [Introduction](chapter-1/README.md)
+* [Introduction](chapter-1/ARTICLE1.md)
     * [Installing](chapter-1/ARTICLE1.md)
     * [Developing stannd-alone](chapter-1/ARTICLE1.md)
     * [Developing within Eclipse](chapter-1/ARTICLE1.md)
-
-* [Basic Configuration](chapter-1/README.md)
-
-* [Designing your application](chapter-1/README.md)
-
-* [Users, Authentication and Databases](chapter-1/README.md)
-
-* [Plugins](chapter-1/README.md)
+* [Basic Configuration](chapter-1/ARTICLE1)
+* [Designing your application](chapter-1/ARTICLE1)
+* [Users, Authentication and Databases](chapter-1/ARTICLE1)
+* [Plugins](chapter-1/ARTICLE1)
 	* [Configuration](chapter-1/ARTICLE1.md)
 	* [Authentication plugins](chapter-1/ARTICLE1.md)
 	* [Filters](chapter-1/ARTICLE1.md)
 	* [New message routes](chapter-1/ARTICLE1.md)
 	* [Statistics](chapter-1/ARTICLE1.md)
-
-* [Components](chapter-1/README.md)		
+* [Components](chapter-1/ARTICLE1)		
 	* [Routing](chapter-1/ARTICLE1.md)
 	* [Configuration](chapter-1/ARTICLE1.md)
 	* [Routing](chapter-1/ARTICLE1.md)
 	* [Statistics](chapter-1/ARTICLE1.md)
-
-* [Scripting](chapter-1/README.md)
-
-* [REST Endpoints and Ad-Hoc commands](chapter-1/README.md)
-
-* [Advanced Configuration](chapter-1/README.md)
+* [Scripting](chapter-1/ARTICLE1)
+* [REST Endpoints and Ad-Hoc commands](chapter-1/ARTICLE1)
+* [Advanced Configuration](chapter-1/ARTICLE1)
 	* [Routing](chapter-1/ARTICLE1.md)
 		* [Default routing](chapter-1/ARTICLE1.md)
 		* [Offline messages](chapter-1/ARTICLE1.md)
 		* [AMP](chapter-1/ARTICLE1.md)			
 * [Implementing new Extensions (XEPs)](chapter-1/ARTICLE1.md)
-
 * [Deployment](chapter-1/ARTICLE1.md)
 	* [Running stannd-alone](chapter-1/ARTICLE1.md)
     * [Running within a container](chapter-1/ARTICLE1.md) 
 	* [Clustering](chapter-1/ARTICLE1.md)
 	* [Loadbalancing Components](chapter-1/ARTICLE1.md)
 * [Testing](chapter-1/ARTICLE1.md)
-
 * [Monitoring](chapter-1/ARTICLE1.md)
-
 * [Clustering](clustering.md)
 	* [Prerequisites](clustering.md)
 	* [Configuration](clustering.md)
@@ -54,5 +43,4 @@
 		* [Components](clustering.md)
 		* [Ad-hoc Scripts](clustering.md)
 	* [Debug and testing](clustering.md)
-
 * [Performance and Optimizations](chapter-1/ARTICLE1.md)

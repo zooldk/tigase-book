@@ -1,6 +1,6 @@
 # Clustering
 
-Clustering in tigase is quite straight forward. When configured correctly the nodes in the cluster will automatically find each other and join the cluster. If a node have failed or is taken down for maintainance, all the other nodes will be notified and i will continue its operations normaally. All of the clients that were connected to the node currently down, have to do re-connect again, and connect to a load balancer that will distribute it to a node that is up. All presence and messages will be as in normal single-node (non-cluster) operation and work out of the box. The proper way of doing re-connect for clients can be found in the core RFC (62... , chapter xx)
+Clustering in tigase is quite straight forward. When configured correctly the nodes in the cluster will automatically find each other and join the cluster. If a node have failed or is taken down for maintainance, all the other nodes will be notified and i will continue its operations normaally. All of the clients that were connected to the node currently down, have to do re-connect again, and connect to a load balancer that will distribute it to a node that is up. All presence and messages will be as in normal single-node (non-cluster) operation and work out of the box. The proper way of doing re-connect for clients can be found in the core [RFC6120, chapter 3.3](https://tools.ietf.org/html/rfc6120#page-19)
 
 
 Clustering and load balancing can be achieved in various ways. The most common way is to have a load balancer (either software or hardware) in front that will balance between the nodes in the cluster. Another way is to use DNS SERV to make the balancing between the nodes. 
@@ -23,11 +23,12 @@ Each node must also have the same database connection strings, e.g. be using MyS
 
 `--user-db=mysql`
 
-And share the same URI for connecting to the specified database:
+And share the same URI for connecting to the specified database, which could look something like this:
 
 `--user-db-uri=jdbc:mysql://db.myserver.example:3306/tigase?user=xxx&password=xxx`
 
 if the above prerequisites is fullfilled your nodes should now be in a cluster. An easy check would be to have two clients, each connecting to a different node in the cluster. If the two nodes can see each other (by presence) and can send stanzas to each other, you now have a clustered environment setup.
+
 ### Strategies and Scaling
 
 The Tigase server have two options for clustering strategy:
@@ -42,26 +43,20 @@ cost licens.. default is open and free. only relevant for 3 nodes and above. def
 
 `--sm-cluster-strategy-class=tigase.cluster.strategy.OnlineUsersCachingStrategy`
 
-Besides h
+Besides having the above strategies, you can implement your own. By implementing the *ClusteringStrategyIfc* interface you change how the packets are forwared and how it reacts on cluster nodes joining or leaving the cluster.
 
-* Your own strategy
-by implementing the *ClusteringStrategyIfc* interface.
-
-
-## Database
 
 ## Clustering Impact
 
 ### Native TCP client conenctions
 
+Both normal TCP and websockets should now be able to connect (if websockets are setup in the configuration). No extra bits are needed in order to make these work.
+
 ### BOSH connections
 
-Since BOSH connections are base on normal HTTP (request / response model), the client is not ensured that it will get the correct... 
+Since BOSH connections are base on normal HTTP (request / response model), the client is not ensured that it will get the to the correct node in the cluster (there are no persistent connection as such).
 
-So **sticky sessions** should be used on the load balancer to ensure that the client will get the correct answer back from the correct node in the cluster.
-
-### Websocket connections
-
+So **sticky sessions** should be used on the load balancer to ensure that the client will get the correct answer back from the correct node in the cluster. IP Hashes and other strategies can be used.
 
 
 
@@ -81,7 +76,26 @@ So for the given publish subscribe component, this subdomain will be pubsub.your
 
 ### Ad-hoc scripts
 
-Not all ad-hoc scripts will work in a clustered environment. This is because each script is situated on each node, and if the given script is not forwarding it to the next node in the cluster -it will simply not be sent to a given client that is situated on that other node.
+Not all ad-hoc scripts will work in a clustered environment. This is because each script is situated on each node, and if the given script is not forwarding it to the next node in the cluster -it will simply not be sent to a given client that is situated on that other node. If you need to use your own script within a cluster you should take a look at the **BroadcastToOnline.groovy** script, which resides in the $TIGASE_HOME/script/admin/ folder.
+
+Using this kind of forwarding to the other nodes in the cluster, will make the script *clusterable* :
+
+```
+Queue results = new LinkedList()
+if      ( clusterMode && notifyCluster ) {
+        if (nodes && nodes.size() > 0 ) {
+                nodes.each { node ->
+                        def forward = p.copyElementOnly();
+                        Command.removeFieldValue(forward, NOTIFY_CLUSTER)
+                        Command.addHiddenField(forward, NOTIFY_CLUSTER, false.toString())
+                        forward.setPacketTo( node );
+                        forward.setPermissions( Permissions.ADMIN );
+                        results.offer(forward)
+                }
+        }
+}
+```
+
 
 ## Debug and Testing
 
@@ -99,11 +113,18 @@ To check your database server, log in to it and query it for the hosts:
 `select * from cluster_nodes;`
 
 
-## Monitoring and Metering
+## Other considerations: the database
+Nothing *needs* to be changed on the database, but when doing clustering and high availability (HA), the next thing might be to shard the database into a cluster (master/slave or other strategies) as well. So no single point of error might occur.
+
+Another possibility could be to change the backend from a RDBMS to a NOSQL database that normally scales more linary when it comes to writes (of course). If you are not using persistency for login, offline, pub/sub or other things, please disregard this section.
+
+
+
+## (WIP) Monitoring and Metering
 
 Like debug and testing, monitoring and metering is a **VERY** important subject when it comes to large scale operations. It is here where you see if your setup scales and if everything is working correctly.
 
-## Exposing your logs
+## (WIP) Exposing your logs
 
 normally logging is done locally. but if you have a large scale setup with multiple nodes in your cluster, this is not the way to handle logging.
 
@@ -114,11 +135,13 @@ For JSON logging you have to add a new log apander to each tigase server. This w
 
 
 ### The ELK (Elastic search / Logstash / Kibana)stack
-
-logstash will gather the JSON logs
-
+<!--
+logstash will gather the JSON logs..
+-->
 
 ## Links
-
+<!--
 * [Tigase Docs](http://docs.tigase.net)
 * [Elastic Search Docs](http://docs.tigase.net)
+*
+-->
