@@ -118,6 +118,7 @@ Nothing *needs* to be changed on the database, but when doing clustering and hig
 
 Another possibility could be to change the backend from a RDBMS to a NOSQL database that normally scales more linary when it comes to writes (of course). If you are not using persistency for login, offline, pub/sub or other things, please disregard this section.
 
+Ofcourse the port from the cluster nodes to the database that you are using should be open as well.
 
 
 ## (WIP) Monitoring and Metering
